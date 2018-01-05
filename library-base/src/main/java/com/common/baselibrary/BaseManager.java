@@ -3,14 +3,19 @@ package com.common.baselibrary;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.StrictMode;
+import android.util.Log;
 
 import com.blankj.utilcode.util.Utils;
+import com.maning.librarycrashmonitor.MCrashMonitor;
+import com.maning.librarycrashmonitor.listener.MCrashCallBack;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
+
+import java.io.File;
 
 /**
  * Created by maning on 2018/1/4.
@@ -22,7 +27,7 @@ public class BaseManager {
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    public static void init(Application application, String LogTag,boolean isDebug) {
+    public static void init(Application application, String LogTag, boolean isDebug) {
         sApplication = application;
         /*日志初始化*/
         initLog(LogTag, isDebug);
@@ -30,6 +35,24 @@ public class BaseManager {
         initCommonUtils();
         /*数据存储初始化*/
         initCache();
+        /*崩溃日志监听*/
+        initCrashLog(isDebug);
+    }
+
+    private static void initCrashLog(boolean isDebug) {
+        /**
+         * 初始化日志系统
+         * context :    上下文
+         * isDebug :    是不是Debug模式,true:崩溃后显示自定义崩溃页面 ;false:关闭应用,不跳转奔溃页面(默认)
+         * CrashCallBack : 回调执行
+         */
+        MCrashMonitor.init(sApplication, isDebug, new MCrashCallBack() {
+            @Override
+            public void onCrash(File file) {
+                //可以在这里保存标识，下次再次进入把日志发送给服务器
+                Logger.i("----------CrashFile---------:" + file.getAbsolutePath());
+            }
+        });
     }
 
     private static void initCache() {

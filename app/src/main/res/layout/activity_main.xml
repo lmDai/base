@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:onClick="btn01"
+        android:text="网络请求-Retrofit"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:onClick="btn02"
+        android:text="网络请求-Retrofit+Rxjava"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:onClick="btn03"
+        android:text="下拉刷新-微博样式"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:onClick="btn04"
+        android:text="下拉刷新-官方样式"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:onClick="btn05"
+        android:text="Mvp测试"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

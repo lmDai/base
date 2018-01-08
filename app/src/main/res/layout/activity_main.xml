@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:onClick="btn01"
-        android:text="网络请求-Retrofit"
+        android:text="网络请求-Retrofit2"
         android:textColor="#FFFFFF" />
 
     <Button
@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:onClick="btn02"
-        android:text="网络请求-Retrofit+Rxjava"
+        android:text="网络请求-Retrofit2+Rxjava2"
         android:textColor="#FFFFFF" />
 
     <Button

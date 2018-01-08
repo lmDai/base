@@ -1,10 +1,13 @@
 package com.maning.baseapplication.ui;
 
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.common.httplibrary.ApiClient;
 import com.common.httplibrary.callback.RetrofitCallback;
 import com.common.httplibrary.callback.RxCallback;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(""));
     }
 
     public void btn01(View view) {
@@ -38,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(GankModel model) {
                 Logger.i("onSuccess:" + model.toString());
+                ToastUtils.showShort(model.toString());
             }
 
             @Override
             public void onFailure(String errorCode, String errorMsg) {
                 Logger.i("onFailure:" + errorMsg);
+                ToastUtils.showShort(errorMsg);
             }
 
             @Override
@@ -58,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(OtherModel model) {
                 Logger.i("onSuccess:" + model.toString());
+                ToastUtils.showShort(model.toString());
             }
 
             @Override
             public void onFailure(String errorCode, String errorMsg) {
                 Logger.i("onFailure:" + errorMsg);
+                ToastUtils.showShort(errorMsg);
             }
 
             @Override

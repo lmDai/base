@@ -10,11 +10,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:gravity="center"
-            android:text="下拉刷新"
+            android:text="下拉刷新,上拉加载"
             android:textColor="#6b6b6b"
             android:textSize="30sp" />
 

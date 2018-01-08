@@ -40,8 +40,7 @@ public class TestPresenter extends BasePresenter<TestView> {
                 Logger.i("onFinish");
             }
         };
-        HttpUtils.getWeatherDatas(rxCallback);
-        addDisposable(rxCallback);
+        HttpUtils.getWeatherDatas(this, rxCallback);
     }
 
 }

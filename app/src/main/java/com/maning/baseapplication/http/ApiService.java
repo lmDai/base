@@ -19,11 +19,11 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     @GET
-    Call<GankModel> loadDataByRetrofit(@Url String url);
+    Call<GankModel> getGankDataByRetrofit(@Url String url);
 
     @POST
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Observable<OtherModel> loadDataByRetrofitRxjava(
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<OtherModel> getWeatherDataByRetrofitRxjava(
             @Url String url,
             @Body RequestBody requestBody
     );

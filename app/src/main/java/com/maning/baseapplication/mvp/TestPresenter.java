@@ -1,10 +1,13 @@
 package com.maning.baseapplication.mvp;
 
-import com.common.httplibrary.callback.RxCallback;
+import com.common.httplibrary.callback.AbsRxCallback;
 import com.common.mvplibrary.BasePresenter;
 import com.maning.baseapplication.http.HttpUtils;
-import com.maning.baseapplication.model.OtherModel;
+import com.maning.baseapplication.model.GankModel;
+import com.maning.baseapplication.model.HttpResponse;
 import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -22,9 +25,9 @@ public class TestPresenter extends BasePresenter<TestView> {
     }
 
     public void getDatas() {
-        RxCallback<OtherModel> rxCallback = new RxCallback<OtherModel>() {
+        AbsRxCallback<HttpResponse<List<GankModel>>> rxCallback = new AbsRxCallback<HttpResponse<List<GankModel>>>() {
             @Override
-            public void onSuccess(OtherModel model) {
+            public void onSuccess(HttpResponse<List<GankModel>> model) {
                 mView.showToast("onSuccess:" + model.toString());
                 Logger.i("onSuccess:" + model.toString());
             }
@@ -40,7 +43,7 @@ public class TestPresenter extends BasePresenter<TestView> {
                 Logger.i("onFinish");
             }
         };
-        HttpUtils.getWeatherDatas(rxCallback);
+        HttpUtils.getOtherDatas(rxCallback);
         addDisposable(rxCallback);
     }
 

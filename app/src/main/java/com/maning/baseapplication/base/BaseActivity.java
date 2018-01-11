@@ -39,4 +39,5 @@ public abstract class BaseActivity<P extends BasePresenter> extends MvpActivity<
     public void hideLoading() {
         ToastUtils.showShort("hideLoading");
     }
+
 }

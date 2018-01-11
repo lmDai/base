@@ -1,18 +1,15 @@
 package com.maning.baseapplication.http;
 
-import com.common.httplibrary.ApiClient;
-import com.common.httplibrary.callback.RetrofitCallback;
-import com.common.httplibrary.callback.RxCallback;
-import com.common.mvplibrary.BasePresenter;
+import com.common.httplibrary.OkHttpUtils;
+import com.common.httplibrary.RetrofitClient;
 import com.maning.baseapplication.model.GankModel;
-import com.maning.baseapplication.model.OtherModel;
-import com.maning.baseapplication.mvp.TestPresenter;
-import com.orhanobut.logger.Logger;
+import com.maning.baseapplication.model.HttpResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.reactivex.Observer;
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -32,16 +29,28 @@ import retrofit2.Callback;
  */
 public class HttpUtils {
 
-    public static RequestBody createRequestBody(String requestStr) {
-        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestStr);
-    }
-
     public static void getGankDatas(Callback callback) {
-        Call<GankModel> call = ApiClient.retrofit().create(ApiService.class).getGankDataByRetrofit("http://gank.io/api/data/Android/10/1");
+        Call<HttpResponse<List<GankModel>>> call = RetrofitClient.retrofit().create(ApiService.class).getGankDataByRetrofit("http://gank.io/api/data/Android/10/1");
         call.enqueue(callback);
     }
 
-    public static void getWeatherDatas(DisposableObserver observer) {
+    public static void getOtherDatas(DisposableObserver observer) {
+        String url = "http://gank.io/api/data/Android/10/1";
+        RetrofitClient.retrofit()
+                .create(ApiService.class)
+                .getGankDataByRetrofitRxjava(url)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public static void getOtherDatas2(okhttp3.Callback callback) {
+        String url = "http://gank.io/api/data/Android/10/1";
+        OkHttpUtils.get(url, callback);
+    }
+
+
+    public static void getListDatas(DisposableObserver observer) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("page", "4");
@@ -50,13 +59,18 @@ public class HttpUtils {
             e.printStackTrace();
         }
         RequestBody requestBody = createRequestBody(jsonObject.toString());
-        String url = "http://www.1v1.one:9191/hxj_srv/spread/v2/get_list/";
-        ApiClient.retrofit()
+        String url = "http://xxxxx/hxj_srv/spread/v2/get_list/";
+        RetrofitClient.retrofit()
                 .create(ApiService.class)
                 .getWeatherDataByRetrofitRxjava(url, requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public static RequestBody createRequestBody(String requestStr) {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestStr);
+    }
+
 
 }

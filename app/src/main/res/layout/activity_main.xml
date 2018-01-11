@@ -29,6 +29,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
+        android:onClick="btn06"
+        android:text="网络请求-OKHttp3"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
         android:onClick="btn03"
         android:text="下拉刷新-微博样式"
         android:textColor="#FFFFFF" />

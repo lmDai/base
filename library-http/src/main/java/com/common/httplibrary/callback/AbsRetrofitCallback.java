@@ -1,30 +1,44 @@
 package com.common.httplibrary.callback;
 
-
 import com.common.httplibrary.constant.HttpErrorConstants;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
- * Rxjava回调
+ * 回调处理
+ *
+ * @param <M>
  */
-public abstract class RxCallback<M> extends DisposableObserver<M> {
+public abstract class AbsRetrofitCallback<M> implements Callback<M> {
 
     public abstract void onSuccess(M model);
 
-    public abstract void onFailure(String errorCode,String errorMsg);
+    public abstract void onFailure(String errorCode, String errorMsg);
 
     public abstract void onFinish();
 
+    @Override
+    public void onResponse(Call<M> call, Response<M> response) {
+        if (response.isSuccessful()) {
+            onSuccess(response.body());
+        } else {
+            onFailure(response.code() + "", response.errorBody().toString());
+        }
+        onFinish();
+    }
 
     @Override
-    public void onError(Throwable exception) {
+    public void onFailure(Call<M> call, Throwable exception) {
+        if (call.isCanceled()) {
+            onFinish();
+            return;
+        }
         exception.printStackTrace();
         String errorCode = HttpErrorConstants.ERR_NETEXCEPTION_ERROR_CODE;
         String errorMsg;
@@ -38,17 +52,7 @@ public abstract class RxCallback<M> extends DisposableObserver<M> {
             //其他网络异常
             errorMsg = HttpErrorConstants.ERR_NETEXCEPTION_ERROR;
         }
-        onFailure(errorCode,errorMsg);
-        onFinish();
-    }
-
-    @Override
-    public void onNext(M model) {
-        onSuccess(model);
-    }
-
-    @Override
-    public void onComplete() {
+        onFailure(errorCode, errorMsg);
         onFinish();
     }
 }

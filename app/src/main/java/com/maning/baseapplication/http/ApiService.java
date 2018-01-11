@@ -1,7 +1,10 @@
 package com.maning.baseapplication.http;
 
 import com.maning.baseapplication.model.GankModel;
+import com.maning.baseapplication.model.HttpResponse;
 import com.maning.baseapplication.model.OtherModel;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -19,10 +22,13 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     @GET
-    Call<GankModel> getGankDataByRetrofit(@Url String url);
+    Call<HttpResponse<List<GankModel>>> getGankDataByRetrofit(@Url String url);
 
+    @GET
+    Observable<HttpResponse<List<GankModel>>> getGankDataByRetrofitRxjava(@Url String url);
+
+    //这里使用Url 主要是为了动态切换BaseUrl
     @POST
-    @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<OtherModel> getWeatherDataByRetrofitRxjava(
             @Url String url,
             @Body RequestBody requestBody
